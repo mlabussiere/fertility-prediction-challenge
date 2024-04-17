@@ -1,5 +1,6 @@
 name: py37
 channels:
+  - conda-forge
   - defaults
 dependencies:
   - _tflow_select=2.2.0=eigen
@@ -247,27 +248,28 @@ dependencies:
   - zlib=1.2.13=h8cc25b3_0
   - zstd=1.5.5=hd43e919_0
   - pip:
-      - astor==0.8.1
-      - autograd==1.6.2
-      - autograd-gamma==0.5.0
-      - cached-property==1.5.2
-      - cycler==0.11.0
-      - fonttools==4.38.0
-      - formulaic==1.0.1
-      - future==1.0.0
-      - graphlib-backport==1.1.0
-      - interface-meta==1.3.0
-      - joblib==1.3.2
-      - keras-applications==1.0.8
-      - kiwisolver==1.4.5
-      - lifelines==0.27.8
-      - matplotlib==3.5.3
-      - mock==5.1.0
-      - pandas==1.3.5
-      - pillow==9.5.0
-      - pyparsing==3.1.2
-      - scikit-learn==1.0.2
-      - tensorboard==1.13.1
-      - tensorflow==1.13.1
-      - tensorflow-estimator==1.13.0
-      - threadpoolctl==3.1.0
+    - astor==0.8.1
+    - autograd==1.6.2
+    - autograd-gamma==0.5.0
+    - cached-property==1.5.2
+    - cycler==0.11.0
+    - fonttools==4.38.0
+    - formulaic==1.0.1
+    - future==1.0.0
+    - graphlib-backport==1.1.0
+    - interface-meta==1.3.0
+    - joblib==1.3.2
+    - keras-applications==1.0.8
+    - kiwisolver==1.4.5
+    - lifelines==0.27.8
+    - matplotlib==3.5.3
+    - mock==5.1.0
+    - pandas==1.3.5
+    - pillow==9.5.0
+    - pyparsing==3.1.2
+    - scikit-learn==1.0.2
+    - tensorboard==1.13.1
+    - tensorflow==1.13.1
+    - tensorflow-estimator==1.13.0
+    - threadpoolctl==3.1.0
+prefix: C:\ProgramData\Anaconda3\envs\py37
