@@ -4,7 +4,7 @@ channels:
   - defaults
 dependencies:
   - ca-certificates=2024.2.2
-  - intel-openmp=2024.1.0
+  - intel-openmp
   - libblas=3.9.0
   - libcblas=3.9.0
   - libhwloc=2.10.0
@@ -18,7 +18,7 @@ dependencies:
   - openssl=3.2.1
   - pandas=1.2.3
   - pip=24.0=pyhd8ed1ab_0
-  - pthreads-win32==2.9.1
+  - pthreads-win32
   - python=3.7.12
   - python-dateutil=2.9.0=pyhd8ed1ab_0
   - python_abi=3.7=4_cp37m
@@ -27,10 +27,10 @@ dependencies:
   - six=1.16.0=pyh6c4a22f_0
   - sqlite=3.45.3
   - tbb=2021.12.0
-  - ucrt=10.0.22621.0
-  - vc=14.3
-  - vc14_runtime=14.38.33130
-  - vs2015_runtime=14.38.33130
+  - ucrt
+  - vc
+  - vc14_runtime
+  - vs2015_runtime
   - wheel=0.34.2=py37_0
   - pip:
     - absl-py==2.1.0
