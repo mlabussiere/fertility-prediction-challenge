@@ -1,4 +1,4 @@
-FROM continuumio/anaconda3:4.1.1
+FROM continuumio/anaconda3:2020.02
 
 COPY environment.yml /
 RUN conda env create -f /environment.yml
