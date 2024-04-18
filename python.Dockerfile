@@ -1,4 +1,4 @@
-FROM continuumio/anaconda3:2020.02
+FROM continuumio/anaconda3:4.1.1
 
 COPY environment.yml /
 RUN conda env create -f /environment.yml
@@ -10,5 +10,5 @@ COPY *.csv /app
 COPY *.py /app
 COPY *.joblib /app
 
-ENTRYPOINT ["conda", "run", "-n", "eyra-rank", "python", "/app/run.py"]
+ENTRYPOINT ["conda", "run", "-n", "env_submission", "python", "/app/run.py"]
 CMD ["predict", "/data/fake_data.csv"]
