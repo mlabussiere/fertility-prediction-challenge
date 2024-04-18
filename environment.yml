@@ -17,14 +17,14 @@ dependencies:
   - numpy=1.21.6
   - openssl=3.2.1
   - pandas=1.2.3
-  - pip=24.0
-  - pthreads-win32=2.9.1
+  - pip=24.0=pyhd8ed1ab_0
+  - pthreads-win32==2.9.1
   - python=3.7.12
-  - python-dateutil=2.9.0
-  - python_abi=3.7
-  - pytz=2024.1
+  - python-dateutil=2.9.0=pyhd8ed1ab_0
+  - python_abi=3.7=4_cp37m
+  - pytz=2024.1=pyhd8ed1ab_0
   - setuptools=59.8.0
-  - six=1.16.0
+  - six=1.16.0=pyh6c4a22f_0
   - sqlite=3.45.3
   - tbb=2021.12.0
   - ucrt=10.0.22621.0
