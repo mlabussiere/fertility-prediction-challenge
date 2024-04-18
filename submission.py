@@ -16,8 +16,8 @@ run.py can be used to test your submission.
 """
 
 # List your libraries and modules here. Don't forget to update environment.yml!
-import sys
-import os
+# import os
+# import sys
 import pandas as pd
 import numpy as np
 import pickle
@@ -27,6 +27,10 @@ from class_DeepLongitudinal_DH  import Model_Longitudinal_Attention
 from warnings import simplefilter
 simplefilter(action="ignore", category=pd.errors.PerformanceWarning)
 
+
+path_data = 'C:/Users/mlabuss/OneDrive - UvA/CAREER/Training/PreFer_Challenge/Data/other_data/'
+with open(path_data + "PreFer_fake_data.csv") as f:
+              df = pd.read_csv(f, low_memory=False) 
 
 # Functions
 def wide_to_long_holdout(holdout_data):
@@ -529,3 +533,4 @@ def predict_outcomes(df, background_df=None, model_path=None):
     return df_predict
 
 
+pred = predict_outcomes(df)

@@ -1,10 +1,9 @@
 import numpy as np
 import tensorflow as tf
-import random
+#import random
 
 from tensorflow.contrib.layers import fully_connected as FC_Net
 from tensorflow.python.ops.rnn import _transpose_batch_time
-
 
 import utils_network_DH as utils
 
