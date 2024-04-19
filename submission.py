@@ -28,9 +28,9 @@ from warnings import simplefilter
 simplefilter(action="ignore", category=pd.errors.PerformanceWarning)
 
 
-path_data = 'C:/Users/mlabuss/OneDrive - UvA/CAREER/Training/PreFer_Challenge/Data/other_data/'
-with open(path_data + "PreFer_fake_data.csv") as f:
-              df = pd.read_csv(f, low_memory=False) 
+# path_data = 'C:/Users/mlabuss/OneDrive - UvA/CAREER/Training/PreFer_Challenge/Data/other_data/'
+# with open(path_data + "PreFer_fake_data.csv") as f:
+#               df = pd.read_csv(f, low_memory=False) 
 
 # Functions
 def wide_to_long_holdout(holdout_data):
@@ -533,4 +533,4 @@ def predict_outcomes(df, background_df=None, model_path=None):
     return df_predict
 
 
-pred = predict_outcomes(df)
+# pred = predict_outcomes(df)
