@@ -10,4 +10,5 @@ dependencies:
   - wheel=0.34.2
   - pip:
     - tensorflow==1.13.1
+    -install protobuf==3.20.5
 prefix: C:\ProgramData\Anaconda3\envs\eyra-rank
