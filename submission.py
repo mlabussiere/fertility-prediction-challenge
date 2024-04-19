@@ -527,8 +527,8 @@ def predict_outcomes(df, background_df=None, model_path=None):
     df_predict = pd.DataFrame(
         {"nomem_encr": test["nomem_encr"], "prediction": test['pred']}
     )
-
-
+    print("SHAPE PREDICT DATAFRAME")
+    print(df_predict.shape)
     # Return only dataset with predictions and identifier
     return df_predict
 
