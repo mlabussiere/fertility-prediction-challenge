@@ -16,8 +16,6 @@ run.py can be used to test your submission.
 """
 
 # List your libraries and modules here. Don't forget to update environment.yml!
-# import os
-# import sys
 import pandas as pd
 import numpy as np
 import pickle
@@ -31,6 +29,7 @@ simplefilter(action="ignore", category=pd.errors.PerformanceWarning)
 # path_data = 'C:/Users/mlabuss/OneDrive - UvA/CAREER/Training/PreFer_Challenge/Data/other_data/'
 # with open(path_data + "PreFer_fake_data.csv") as f:
 #               df = pd.read_csv(f, low_memory=False) 
+              
 
 # Functions
 def wide_to_long_holdout(holdout_data):
@@ -466,7 +465,14 @@ def predict_outcomes(df, background_df=None, model_path=None):
          'ch169_1']
     cont_list = ['birthyear_bg', 'nettohh_f', 'cf129', 'cd034', 'nb_previous_kids']
     feat_list          = cont_list + bin_list
-     
+    
+    # Categorical values that are not present in holdhout data 
+    feat_missing = [ele for ele in feat_list if ele not in data_cov_norm.columns]
+
+    # Creates columns filled with zeros for missing categorical values
+    for cat in feat_missing:
+        data_cov_norm[cat] = 0
+        
     data = f_construct_dataset_holdout(data_cov_norm, feat_list)
 
     # Creation mask for missing values (data_mi)
