@@ -15,4 +15,4 @@ COPY model.ckpt.meta /app
 COPY params_dictionary.pkl /app
 
 ENTRYPOINT ["conda", "run", "-n", "eyra-rank", "python", "/app/run.py"]
-CMD ["predict", "/data/fake_data.csv"]
+CMD []
