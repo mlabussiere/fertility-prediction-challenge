@@ -11,7 +11,7 @@ COPY *.py /app
 COPY *.joblib /app
 COPY sumbissionxgb.json /app
 COPY sumbissionGRU.keras /app
-COPY saved_params.pkl /app
+COPY saved_params /app
 
 
 ENTRYPOINT ["conda", "run", "-n", "eyra-rank", "python", "/app/run.py"]
