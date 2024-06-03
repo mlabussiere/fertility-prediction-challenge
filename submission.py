@@ -32,7 +32,7 @@ simplefilter(action="ignore", category=pd.errors.PerformanceWarning)
 
 
 
-def wide_to_long(data, dic_norm_cont):
+def wide_to_long(data, dic_norm_cont,featureName):
     '''
     Parameters
     ----------
@@ -379,8 +379,14 @@ def wide_to_long(data, dic_norm_cont):
     
     df_long = df_long.sort_values(['nomem_encr','year'])
     df_long.reset_index(inplace=True)
+    
+    
+    # Categorical values that are not present in holdhout data 
+    feat_missing = [ele for ele in featureName if ele not in df_long.columns]
 
-
+    # Creates columns filled with zeros for missing categorical values
+    for cat in feat_missing:
+        df_long[cat] = 0
     #######################
     # Creation input cube #
     #######################
@@ -450,11 +456,11 @@ def create_cube(df):
 def predictProb(distFirst,distSec,distThird,nKid,T,dT):
     t_ = T+dT
     if nKid==0:
-        out = np.sum(distFirst[t_:min(t_+3,27)])/(1-np.sum(distFirst[:T]))
+        out = np.sum(distFirst[t_:min(t_+3,27)])/max(1-np.sum(distFirst[:min(T,28)]),1e-16)
     elif nKid==1:
-        out = np.sum(distSec[t_:min(t_+3,6)])/(1-np.sum(distSec[:T]))
+        out = np.sum(distSec[t_:min(t_+3,6)])/max(1-np.sum(distSec[:min(T,7)]),1e-16)
     else:
-        out = np.sum(distThird[t_:min(t_+3,6)])/(1-np.sum(distThird[:T]))
+        out = np.sum(distThird[t_:min(t_+3,6)])/max(1-np.sum(distThird[:min(T,7)]),1e-16)
     
     if dT!=0:
         if nKid==0:
@@ -631,15 +637,16 @@ def predict_outcomes(df, background_df=None, model_path=None):
 
 
     # load parameters
-    with open('saved_params.pkl', 'rb') as f:
+    with open('saved_params', 'rb') as f:
                 saved_params = pickle.load(f)
                 
                 
     dic_norm_cont_long = saved_params['dic_norm_cont_long']
     dic_norm_cont_wide = saved_params['dic_norm_cont_wide']
+    featList = saved_params['featList']
     
     # Preprocess the fake / holdout data
-    cube, parentInfo, df_wide, dic_type_codebook_wide,dic_nomencr_idx = wide_to_long(df, dic_norm_cont_long)
+    cube, parentInfo, df_wide, dic_type_codebook_wide,dic_nomencr_idx = wide_to_long(df, dic_norm_cont_long,featList)
 
 
     #estimate probability with GRU RNN
@@ -649,11 +656,13 @@ def predict_outcomes(df, background_df=None, model_path=None):
 
 
     #  predict with an XGBoost 
-    bst = xgb.Booster({'nthread': 4})  # init model
-    bst.load_model('xgb_model.json')  # load data
+    # bst = xgb.Booster({'nthread': 4})  # init model
+    # bst.load_model('sumbissionxgb.json')  # load data
     
-    X = df_wide
     
+    bst = pickle.load(open('sumbissionxgb.json', "rb"))
+    
+    X = df_wide.copy()
     
     dic_type_codebook_wide.pop('nomem_encr', None)
     
@@ -670,18 +679,29 @@ def predict_outcomes(df, background_df=None, model_path=None):
     cont_list = [key for key in dic_type_codebook_wide.keys() if dic_type_codebook_wide[key] == 'numeric']
         
     
-    for var in cont_list:            
-            X[var] = (X[var]-dic_norm_cont_wide[0])/dic_norm_cont_wide[1]
+    for var in cont_list:       
+        if(~np.isnan(dic_norm_cont_wide[var][0])):
+            X[var] = (X[var]-dic_norm_cont_wide[var][0])/dic_norm_cont_wide[var][1]/100
+        else:
+            X[var] = 0
             
     X['p_gru'] = p*0
     for r in range(X.shape[0]):
         X.loc[r,'p_gru'] = p[dic_nomencr_idx[ X.loc[r,'nomem_encr']]]
     
+    
+    X.pop('nomem_encr')
+    
     prediction = bst.predict(X)
     df_pred = pd.DataFrame()
-    df_pred['nomem_encr'] =  X['nomem_encr']
+    df_pred['nomem_encr'] =  df_wide['nomem_encr']
     df_pred['prediction'] =  prediction
     return df_pred
 
-
-pred = predict_outcomes("PreFer_fake_data.csv")
+with open("PreFer_fake_data.csv") as f:
+      fake_data = pd.read_csv(f, low_memory=False) 
+      
+# with open("PreFer_fake_data.csv") as f:
+#      fake_data = pd.read_csv(f, low_memory=False) 
+# fake_data = train_data.loc[0:10,:]
+# pred = predict_outcomes(fake_data)
